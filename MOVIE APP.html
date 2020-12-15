@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>MOVIE INFO :</title>
+</head>
+<body>
+    <div class="container-fluid">
+   <h1 class="text-center mt-5">MOVIE INFORMATION :</h1>
+   <br><br>
+   <form id="f" autocomplete="off">
+    <div class="form-group">
+        <input class="form-control" type="text" id="movie" placeholder="SEARCH HERE FOR MOVIE INFO...">
+   <div class="form-group">
+       <button class="btn btn-danger btn-block">SEARCH MOVIE</button>
+
+   </div>
+  </form>
+  <div id="result"></div>
+</div>
+  <script>
+      var api_key="c6700470";
+      $(document).ready(function(){
+          $("#f").submit(function(event){
+              event.preventDefault()
+
+              var movie=$("#movie").val();
+              var result="";
+              var url="http://www.omdbapi.com/?apikey="+api_key;
+
+              $.ajax({
+                  method:'GET',
+                  url:url+"&t="+movie,
+                  success:function(data){
+                   
+                    result=`
+                    
+                    <img style="float:left class="img-thumnail width="200" height="200"
+                      src="${data.Poster}" >
+                      <h2>TITLE: ${data.Title}</h2>
+                      <h2>RELEASED DATE: ${data.Released}</h2>
+                      <h2>TIMING: ${data.Runtime}</h2>
+                      <h2>MOVIE TYPE: ${data.Genre}</h2>
+                      <h2>DIRECTOR: ${data.Director}</h2>
+                      <h2>ACTORS: ${data.Actors}</h2>
+
+                    `
+
+                    $("#result").html(result);
+
+                   
+
+                  }
+              })
+          })
+      })
+  </script>
+  
+</body>
+</html>
+
+
+
+
